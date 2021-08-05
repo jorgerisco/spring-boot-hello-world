@@ -1,6 +1,7 @@
 FROM openjdk:8u111-jre-alpine
 VOLUME /tmp
-ADD demo-0.0.1-SNAPSHOT.jar /app.jar
-RUN sh -c 'touch /app.jar'
-EXPOSE 8081
+ARG JAR_FILE=target/*.jar
+ADD ${JAR_FILE} app.jar
+RUN sh -c 'touch app.jar'
+EXPOSE 80
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
